@@ -1,6 +1,6 @@
 # Milestone project for Data Incubator
 
-The project allows the user to display the price for a stock.  The user can input any value into the 'ticker' field, and select any particular price option.  The program then displays the data.
+The project allows the user to display the 30-day price history for a stock.  The user can input any value into the 'ticker' field, and select any particular price option.  The program then displays the data.
 
 
 ## index.html
