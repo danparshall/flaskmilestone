@@ -27,8 +27,9 @@ def loadApiKey( keyFile, keyName ) :
 def fetch_quandl(ticker, apiKey) :
 
 	if not ticker.isalpha():
-		print "ticker must contain only letters, defaulting to AAPL"
-		ticker = "AAPL"
+#		print "ticker must contain only letters, defaulting to AAPL"
+#		ticker = "AAPL"
+		return df=None
 	else :
 		ticker = ticker.upper()
 
