@@ -1,15 +1,40 @@
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>Hello, World!</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	</head>
-	<body>
-		<div>
-  			<h1>Hello, World!</h1>
-		</div>
-	</body>
-</html>
+<title>Milestone Project</title>
+
+<link
+    href="http://cdn.pydata.org/bokeh/release/bokeh-0.9.0.min.css"
+    rel="stylesheet" type="text/css"
+>
+<div class=page>
+  <h1>Stock plotter</h1>
+
+  <div class=metanav>
+
+
+    <h2>Please enter a stock ticker (e.g., AAPL).</h2>
+
+    <h4>
+      <form id='answerform' method='post' action='plotpage' >
+	<p>
+		Ticker : <input type='text' name='tickerText' value='GOOG'/>
+	  </p>
+        <p>
+		<!-- hidden input means that even if nothing is checked, sanity ensured -->
+		<!-- see http://www.sitepoint.com/html-radio-radio-button-defaults/ -->
+		<!-- input type="hidden" name='pricecheck' value='Close' / -->
+
+		<input type="radio" name='priceCheck' value='Close' align='left' checked='yes' /> Closing price<br>
+		<input type="radio" name='priceCheck' value='Open' align='left' /> Opening price<br>
+		<input type="radio" name='priceCheck' value='High' align='left' /> Highest price of the day<br>
+		<input type="radio" name='priceCheck' value='Low' align='left' /> Lowest price of the day<br>
+
+        </p>
+
+        <p>
+          <input type='submit' value='Plot' />
+        </p>
+      </form>
+    </h4>
+	<h2> {{ msg }} </h2>
+  </div>
+</div>
