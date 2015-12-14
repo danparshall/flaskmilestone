@@ -29,7 +29,8 @@ def fetch_quandl(ticker, apiKey) :
 	if not ticker.isalpha():
 #		print "ticker must contain only letters, defaulting to AAPL"
 #		ticker = "AAPL"
-		return df=None
+		df = None
+		return df
 	else :
 		ticker = ticker.upper()
 
