@@ -14,7 +14,7 @@ Plot is displayed.  The name of the company is shown.  A "back" button returns t
 
 
 ## app.py
-This accepts the user ticker value, formats into an API string, and sends a request to Quandl.  The API key is kept hidden.  The request is returned in .json format, which is then read into pandas.
-The relevant columns are extracted from pandas, and a plot is calculated using bokeh.  The plot data is fed to plot.html.
+This accepts the user ticker value, formats into an API string, and sends a request to Quandl.  The API key is kept hidden.  The request is returned in .json format, which is then read into pandas.  The company name is extracted as well.
+The relevant columns are extracted from pandas, and a plot is calculated using bokeh.  The plot data and compnay name are fed to plot.html.
 
 
