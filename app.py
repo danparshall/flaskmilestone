@@ -23,17 +23,9 @@ def loadApiKey( keyFile, keyName ) :
 	return apiKey
 
 ################################################################################
-
 def fetch_quandl(ticker, apiKey) :
 
-	if not ticker.isalpha():
-#		print "ticker must contain only letters, defaulting to AAPL"
-#		ticker = "AAPL"
-		df = None
-		return df
-	else :
-		ticker = ticker.upper()
-
+	ticker = ticker.upper()
 
 	now = dt.datetime.now().date()
 	then = now - dt.timedelta(days=30)
@@ -41,21 +33,28 @@ def fetch_quandl(ticker, apiKey) :
 	now  = "&end_date=" + now.strftime("%Y-%m-%d")
 
 	reqUrl = 'https://www.quandl.com/api/v3/datasets/WIKI/' + ticker + \
-					'/data.json?api_key=' + apiKey + now + then
+					'.json?api_key=' + apiKey + now + then
+
+	print reqUrl
 
 	r = requests.get(reqUrl)
-#	r.raise_for_status()	# throws HTTPError if ticker not valid
 
 	if r.status_code < 400 :
-		dat = r.json()['dataset_data']
+		# get name of company
+		name = r.json()['dataset']['name']
+		name = name.split('(')[0]
+
+		# get data
+		dat = r.json()['dataset']
 		df = DataFrame(dat['data'], columns=dat['column_names'] )
 		df = df.set_index(pd.DatetimeIndex(df['Date']))
 
 	else :
 		print "Stock ticker not valid"
 		df = None
+		name = None
 
-	return df
+	return df, name
 
 ################################################################################
 
@@ -102,7 +101,7 @@ app.vars['apiKey'] = loadApiKey( keyFile, keyName)
 def main():
 	return redirect('/index')
 
-@app.route('/index')
+@app.route('/index', methods=['GET','POST'])
 def index():
 	return render_template('index.html')
 
@@ -115,7 +114,7 @@ def plotpage():
 	app.vars['ticker'] = tickStr.upper()
 	app.vars['priceReqs'] = reqList
 
-	df = fetch_quandl(app.vars['ticker'], app.vars['apiKey'])
+	df,name = fetch_quandl(app.vars['ticker'], app.vars['apiKey'])
 
 
 	# if the stock ticker isn't valid, reload with warning message
@@ -124,7 +123,7 @@ def plotpage():
 		return render_template('index.html', msg=msg)
 	else:
 		script, div = make_figure(df, app.vars['priceReqs'], app.vars['ticker'] )
-		return render_template('plot.html', script=script, div=div, ticker=tickStr)
+		return render_template('plot.html', script=script, div=div, ticker=name)
 
 
 if __name__ == '__main__':
